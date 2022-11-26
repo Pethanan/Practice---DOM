@@ -1,58 +1,28 @@
-const parentOfItems = document.querySelector("#items").parentElement;
+let itemsList = document.querySelector("#items");
+const addForm = document.querySelector("#addForm");
+addForm.addEventListener("submit", addingForm);
 
-//parentOfItems.textContent = "this is the parent of items ";
+function addingForm(e)
+{
+  
+  
+  e.preventDefault();
 
-const lastelementch = document.querySelector("#items").lastElementChild;
+ const newLi = document.createElement("li");
+  newLi.className = "list-group-item";
+  newLi.appendChild(document.createTextNode(document.querySelector('#item').value));
+  const delBtn = document.createElement("button");
+  delBtn.appendChild(document.createTextNode("X"));
+  delBtn.className = "btn btn-danger btn-sm float-right delete";
+  newLi.appendChild(delBtn);
+  itemsList.appendChild(newLi);
+  }
 
-lastelementch.style.color = "blue";
+const liItem = document.querySelectorAll(".list-group-item");
 
-const lastCh = document.querySelector("#items").lastChild;
-
-console.log(lastCh);
-
-const firstelementchi = document.querySelector("#items").firstElementChild;
-
-firstelementchi.style.backgroundColor ="orange";
-
-const firstchi = document.querySelector("#items").firstChild;
-
-firstchi.style.color = "red";
-
-const nextsibl = document.querySelector("#thirdItem").nextSibling;
-
-nextsibl.textContent= "this is the next sibling of third item";
-
-const nextelementsibl = document.querySelector("#thirdItem").nextElementSibling;
-
-nextelementsibl.textContent = "this is the next sibling element of third item";
-
-const prevsibl = document.querySelector("#thirdItem").previousSibling;
-
-prevsibl.textContent= "this is the prev sibling of third item";
-
-const previouselementsibl = document.querySelector("#thirdItem").previousElementSibling;
-
-previouselementsibl.textContent = "this is the next sibling element of third item";
-
-
-
-let newDiv = document.createElement("div");
-
-
-
-newDiv.setAttribute("title", "attributeSet");
-
-let newTextElement = document.createTextNode("newly added text node");
-
-newDiv.appendChild(newTextElement);
-
-
-
-let container = document.querySelector("header .container");
-
-let h1 = document.querySelector("header h1")
-
-
-
-container.insertBefore(newDiv, h1);
-
+const editBtn = document.createElement("button");
+editBtn.appendChild(document.createTextNode("Edit"));
+for (let i=0; i<liItem.length; i++)
+{
+  liItem[i].appendChild(editBtn);
+}
