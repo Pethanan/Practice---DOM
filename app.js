@@ -1,7 +1,13 @@
-//does not work
-const itemsList = document.getElementsByClassName("list-group-item");
-//itemsList[4].style.backgroundColor = "green";
 
-//this works
-const itemsListbyTag = document.getElementsByTagName("li");
-itemsListbyTag[4].style.backgroundColor = "green";
+const nthChild = document.querySelector("li:nth-child(2)");
+nthChild.style.color = "red";
+
+const oddChild = document.querySelectorAll("li:nth-child(odd)");
+for(let i=0; i<oddChild.length; i++)
+  {
+  oddChild[i].style.backgroundColor = "green";
+  }
+
+
+
+
