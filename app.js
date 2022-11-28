@@ -1,6 +1,8 @@
 let itemsList = document.querySelector("#items");
 const addForm = document.querySelector("#addForm");
 addForm.addEventListener("submit", addingForm);
+filter.addEventListener("keyup", filterFn);
+
 
 function addingForm(e)
 {
@@ -16,6 +18,14 @@ function addingForm(e)
   delBtn.className = "btn btn-danger btn-sm float-right delete";
   newLi.appendChild(delBtn);
   itemsList.appendChild(newLi);
+  let newDesc = document.getElementById('itemDesc').value;
+  let newDescEl = document.createElement("p");
+  newDescEl.appendChild(document.createTextNode(newDesc));
+  // Append li to list
+  li.appendChild(newDescEl);
+  itemList.appendChild(li);
+ 
+  
   }
 
 const liItem = document.querySelectorAll(".list-group-item");
@@ -39,6 +49,30 @@ let searchText = e.target.value.toLowerCase();
   { 
     let itemName = item.firstChild.textContent.toLowerCase();
     if(itemName.indexOf(searchText) != -1)
+      {
+        item.style.display = "block";
+      }
+    else
+    {
+        item.style.display = "none";
+      }
+    
+  })
+  
+}
+
+function filterFn(e)
+{
+let searchText = e.target.value.toLowerCase();
+ let singleItems = itemList.getElementsByTagName("li");
+  let itemsArray = Array.from(singleItems);
+  
+  itemsArray.forEach(function(item) 
+  { 
+    let itemName = item.firstChild.textContent.toLowerCase();
+    let itemdesc = item.querySelector("p")textContent.toLowerCase();
+    
+    if(itemName.indexOf(searchText) != -1 || itemdesc.indexOf(searchText) != -1)
       {
         item.style.display = "block";
       }
