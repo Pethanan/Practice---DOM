@@ -26,3 +26,27 @@ for (let i=0; i<liItem.length; i++)
 {
   liItem[i].appendChild(editBtn);
 }
+
+filter.addEventListener("keyup", filterFn);
+
+function filterFn(e)
+{
+let searchText = e.target.value.toLowerCase();
+ let singleItems = itemList.getElementsByTagName("li");
+  let itemsArray = Array.from(singleItems);
+  
+  itemsArray.forEach(function(item) 
+  { 
+    let itemName = item.firstChild.textContent.toLowerCase();
+    if(itemName.indexOf(searchText) != -1)
+      {
+        item.style.display = "block";
+      }
+    else
+    {
+        item.style.display = "none";
+      }
+    
+  })
+  
+}
