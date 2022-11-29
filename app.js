@@ -17,16 +17,14 @@ function addingForm(e)
   delBtn.appendChild(document.createTextNode("X"));
   delBtn.className = "btn btn-danger btn-sm float-right delete";
   newLi.appendChild(delBtn);
-  itemsList.appendChild(newLi);
   let newDesc = document.getElementById('itemDesc').value;
   let newDescEl = document.createElement("p");
   newDescEl.appendChild(document.createTextNode(newDesc));
-  // Append li to list
-  li.appendChild(newDescEl);
-  itemList.appendChild(li);
- 
+  newLi.appendChild(newDescEl);
+  itemsList.appendChild(newLi);
+  localStorage.setItem(document.querySelector('#item').value, newDesc);
+}
   
-  }
 
 const liItem = document.querySelectorAll(".list-group-item");
 
