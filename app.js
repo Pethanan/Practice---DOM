@@ -3,7 +3,6 @@ const addForm = document.querySelector("#addForm");
 addForm.addEventListener("submit", addingForm);
 filter.addEventListener("keyup", filterFn);
 
-
 function addingForm(e)
 {
   
@@ -22,10 +21,12 @@ function addingForm(e)
   newDescEl.appendChild(document.createTextNode(newDesc));
   newLi.appendChild(newDescEl);
   itemsList.appendChild(newLi);
-  localStorage.setItem(document.querySelector('#item').value, newDesc);
-}
-  
+  let itemInfo = { item: document.querySelector('#item').value, description: newDesc};
+  let itemSerialized = JSON.stringify(itemInfo);
+  localStorage.setItem(document.querySelector('#item').value, itemSerialized);
 
+
+  let deSerialized = JSON.parse(localStorage.getItem(document.querySelector('#item').value));
 const liItem = document.querySelectorAll(".list-group-item");
 
 const editBtn = document.createElement("button");
