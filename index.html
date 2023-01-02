@@ -5,11 +5,18 @@
    
 <style>
   
+  body
+  {
+    font-family: Verdana, sans-serif;
+  }
   div
   {
 
-   background-color: #FFA500;
+   background-color: rgb(158, 204, 247);
    padding: 5px;
+      font-family: Verdana, sans-serif;
+    font-size: 12px
+
   }
 
   input
@@ -19,15 +26,15 @@
   
 #registered-users
   {
-    background-color = rgb(255, 255, 255);
+    background-color: rgb(158, 204, 247);
   }
    </style>
   </head>
 
  <body>
 
-   <div>
-   <form action="#" id ="input-form">
+   <div style="width: 700px" >
+   <form action="#" id ="input-form" style="padding: 20px">
 
    <label for="Name">Name</label></br></br>
 
@@ -41,10 +48,10 @@
 
    <label for="phone">Phone </label></br></br>
 
-    <input type="text" name="phone"  id = "user-phone" ></input></br></br>
+    <input type="text" name="phone"  id = "user-phone" style="margin-bottom: 10px" ></input></br></br>
 
 
-   <button type="submit">Submit</button>
+   <button type="submit" style="background-color: #01498c; color: white; padding: 3px 12px">Submit</button>
 
    </form>
 
@@ -53,13 +60,32 @@
   <ul id ="registered-users">
     
   </ul>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <script>
   let inputForm = document.getElementById("input-form");
 
 inputForm.addEventListener("submit", addToStorage);
 
+async function showItems()
+{
+  await axios.get("https://crudcrud.com/api/8e97ddd4693c4068807d89fbc9d06bdd/appointmentData").then(res=>{
+    for (let i=0; i<res.data.length; i++)
+    {
+      const parentNode = document.getElementById('registered-users');
+  const childHTML = `<li id=${res.data[i].emailId}> ${res.data[i].name} - ${res.data[i].emailId}
+                                        <button onclick = deleteUser("${res.data[i].emailId}")> Delete User </button>
+                                        <button onclick=editUserDetails('${res.data[i].emailId}','${res.data[i].name}','${res.data[i].phone}')>Edit User </button>
+                                     </li>`;
 
-
+                parentNode.innerHTML = parentNode.innerHTML + childHTML;
+    }
+  })
+  
+  
+}
+showItems();
 function addToStorage(e)
 {
   e.preventDefault();
@@ -72,19 +98,15 @@ function addToStorage(e)
                 };
   
                                     
-localStorage.setItem(userObj.emailId, JSON.stringify(userObj));    
-  showItem(userObj);
+axios.post("https://crudcrud.com/api/8e97ddd4693c4068807d89fbc9d06bdd/appointmentData", userObj).then(res=>{
+  showItem(res.data);
+   
+}).catch(err=>{
+  document.body.innerHTML = document.body.innerHTML + "<p>something went wrong</p>";
+})
+  
 }
  
-window.addEventListener("DOMContentLoaded", () => 
-                        {
-          Object.keys(localStorage).forEach((key)=>
-                                            {
-    let userDetailObj = JSON.parse(localStorage.getItem(key));
-            showItem(userDetailObj);
-      })
-});
-
 
 function showItem(user)
 {
