@@ -68,24 +68,16 @@
 
 inputForm.addEventListener("submit", addToStorage);
 
-async function showItems()
+window.addEventListener("DOMContentLoaded", () => 
 {
-  await axios.get("https://crudcrud.com/api/8e97ddd4693c4068807d89fbc9d06bdd/appointmentData").then(res=>{
-    for (let i=0; i<res.data.length; i++)
+ axios.get("https://crudcrud.com/api/8e97ddd4693c4068807d89fbc9d06bdd/appointmentData").then(res=>{
+ for (let i=0; i<res.data.length; i++)
     {
-      const parentNode = document.getElementById('registered-users');
-  const childHTML = `<li id=${res.data[i].emailId}> ${res.data[i].name} - ${res.data[i].emailId}
-                                        <button onclick = deleteUser("${res.data[i].emailId}")> Delete User </button>
-                                        <button onclick=editUserDetails('${res.data[i].emailId}','${res.data[i].name}','${res.data[i].phone}')>Edit User </button>
-                                     </li>`;
-
-                parentNode.innerHTML = parentNode.innerHTML + childHTML;
+     showItem(res.data[i])
     }
-  })
+  }).catch(err=>{console.log(err)})
+})
   
-  
-}
-showItems();
 function addToStorage(e)
 {
   e.preventDefault();
