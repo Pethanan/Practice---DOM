@@ -8,6 +8,13 @@
   body
   {
     font-family: Verdana, sans-serif;
+    
+  }
+  #registered-users
+  {
+    font-family: Verdana, sans-serif;
+    font-size: 12px;
+    padding-top: ;
   }
   div
   {
@@ -26,7 +33,7 @@
   
 #registered-users
   {
-    background-color: rgb(158, 204, 247);
+    padding-top: 8px;
   }
    </style>
   </head>
@@ -51,15 +58,16 @@
     <input type="text" name="phone"  id = "user-phone" style="margin-bottom: 10px" ></input></br></br>
 
 
-   <button type="submit" style="background-color: #01498c; color: white; padding: 3px 12px">Submit</button>
+   <button type="submit" style="background-color: #01498c; color: white; padding: 3px 8px">Submit</button>
 
    </form>
 
 </div>
+<h5 style="padding-top: 10px">Registered Users:</h5>
 
-  <ul id ="registered-users">
+  <ol id ="registered-users" >
     
-  </ul>
+  </ol>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
@@ -70,7 +78,7 @@ inputForm.addEventListener("submit", addToStorage);
 
 window.addEventListener("DOMContentLoaded", () => 
 {
- axios.get("https://crudcrud.com/api/fc11110ada5642cf976dcd1c509daba0/appointmentData").then(res=>{
+ axios.get("https://crudcrud.com/api/74297de403544880bdb761c11a1867a6/appointmentData").then(res=>{
  for (let i=0; i<res.data.length; i++)
     {
      showItem(res.data[i])
@@ -90,7 +98,7 @@ function addToStorage(e)
                 };
   
                                     
-axios.post("https://crudcrud.com/api/fc11110ada5642cf976dcd1c509daba0/appointmentData", userObj).then(res=>{
+axios.post("https://crudcrud.com/api/74297de403544880bdb761c11a1867a6/appointmentData", userObj).then(res=>{
   showItem(res.data);
    
 }).catch(err=>{
@@ -111,28 +119,28 @@ function showItem(user)
     
   }
   const parentNode = document.getElementById('registered-users');
-  const childHTML = `<li id=${user._id}> ${user.name} - ${user.emailId}
-                                        <button onclick = deleteUser("${user._id}")> Delete  </button>
-                                        <button onclick=editUserDetails('${user.emailId}','${user.name}','${user.phone}')>Edit User </button>
+  const childHTML = `<li id=${user._id} style="padding-bottom: 10px"> ${user.name} - ${user.emailId}
+                                        <button onclick = deleteUser("${user._id}") style="background-color: #01498c; color: white; padding: 3px 8px"> Delete  </button>
+                                        <button onclick=editUserDetails('${user._id}','${user.name}','${user.phone}') style="background-color: #01498c; color: white; padding: 3px 8px">Edit User </button>
                                      </li>`;
 
                 parentNode.innerHTML = parentNode.innerHTML + childHTML;
 }
 
 
-function editUserDetails(emailId, name, phone){
+function editUserDetails(id, name, phone){
 
-                document.getElementById('user-email').value = emailId;
+                document.getElementById('user-email').value = "";
                 document.getElementById('user-name').value = name;
                 document.getElementById('user-phone').value = phone;
 
-                deleteUser(emailId);
+                deleteUser(id);
              }
 
 
 function deleteUser(id)
 {
-  axios.delete(`https://crudcrud.com/api/fc11110ada5642cf976dcd1c509daba0/appointmentData/${id}`).then(res=>{console.log(res.data)});
+  axios.delete(`https://crudcrud.com/api/74297de403544880bdb761c11a1867a6/appointmentData/${id}`).then(res=>{console.log(res.data)});
                 
  removeUserFromScreen(id);
 }
