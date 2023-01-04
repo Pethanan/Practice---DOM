@@ -64,13 +64,13 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
-  let inputForm = document.getElementById("input-form");
+    let inputForm = document.getElementById("input-form");
 
 inputForm.addEventListener("submit", addToStorage);
 
 window.addEventListener("DOMContentLoaded", () => 
 {
- axios.get("https://crudcrud.com/api/8e97ddd4693c4068807d89fbc9d06bdd/appointmentData").then(res=>{
+ axios.get("https://crudcrud.com/api/fc11110ada5642cf976dcd1c509daba0/appointmentData").then(res=>{
  for (let i=0; i<res.data.length; i++)
     {
      showItem(res.data[i])
@@ -90,7 +90,7 @@ function addToStorage(e)
                 };
   
                                     
-axios.post("https://crudcrud.com/api/8e97ddd4693c4068807d89fbc9d06bdd/appointmentData", userObj).then(res=>{
+axios.post("https://crudcrud.com/api/fc11110ada5642cf976dcd1c509daba0/appointmentData", userObj).then(res=>{
   showItem(res.data);
    
 }).catch(err=>{
@@ -108,10 +108,11 @@ function showItem(user)
   if(localStorage.getItem(user.email) !== null)
   {
    removeUserFromScreen(user.email);
+    
   }
   const parentNode = document.getElementById('registered-users');
-  const childHTML = `<li id=${user.emailId}> ${user.name} - ${user.emailId}
-                                        <button onclick = deleteUser("${user.emailId}")> Delete User </button>
+  const childHTML = `<li id=${user._id}> ${user.name} - ${user.emailId}
+                                        <button onclick = deleteUser("${user._id}")> Delete  </button>
                                         <button onclick=editUserDetails('${user.emailId}','${user.name}','${user.phone}')>Edit User </button>
                                      </li>`;
 
@@ -128,20 +129,23 @@ function editUserDetails(emailId, name, phone){
                 deleteUser(emailId);
              }
 
-function deleteUser(mailid)
+
+function deleteUser(id)
 {
-                localStorage.removeItem(mailid);
-                removeUserFromScreen(mailid);
+  axios.delete(`https://crudcrud.com/api/fc11110ada5642cf976dcd1c509daba0/appointmentData/${id}`).then(res=>{console.log(res.data)});
+                
+ removeUserFromScreen(id);
 }
 
-function removeUserFromScreen(mailid)
+function removeUserFromScreen(id)
 {
   const parentNode = document.getElementById('registered-users');
-                const childNodeToBeDeleted = document.getElementById(mailid);
+                const childNodeToBeDeleted = document.getElementById(id);
                 if(childNodeToBeDeleted) {
                     parentNode.removeChild(childNodeToBeDeleted)
                 }
 }
+
 </script>
 </body>
 
